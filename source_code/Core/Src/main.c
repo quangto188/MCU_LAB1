@@ -64,6 +64,7 @@ static void MX_GPIO_Init(void);
 uint16_t Clock[12]= {GPIO_PIN_4, GPIO_PIN_5, GPIO_PIN_6, GPIO_PIN_7, GPIO_PIN_8, GPIO_PIN_9, GPIO_PIN_10, GPIO_PIN_11, GPIO_PIN_12, GPIO_PIN_13, GPIO_PIN_14, GPIO_PIN_15};
 void clearAllClock() {
     HAL_GPIO_WritePin(GPIOA, GPIO_PIN_All, 1);
+
 }
 
 void setNumberOnClock(int num) {
@@ -103,12 +104,28 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  int sec =30;
+  int min = 50;
+  int hour =11;
   while (1)
   {
     /* USER CODE END WHILE */
-
-
-
+	  clearAllClock();
+	  if (sec>=59){
+		  min++;
+		  sec=0;
+	  } else sec++;
+	  if (min>=60){
+		  hour++;
+		  min=0;
+	  }
+	  if (hour>=12){
+		  hour=0;
+	  }
+	  setNumberOnClock(sec/5);
+	  setNumberOnClock(min/5);
+	  setNumberOnClock(hour);
+	  HAL_Delay(1000);
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
